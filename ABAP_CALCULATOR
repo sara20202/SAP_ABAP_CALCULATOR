@@ -1,0 +1,54 @@
+*Task:
+*Build a program named Z ## _ CALC (where ## is your number) which has input parameters:
+*Number 1
+*Number 2
+*Operator
+*Where the Operator will be able to get one of the values ​​+ - / *
+*Depending on the input that will be given by the user, to display the result of the mathematical operation according to the first number, the second number and the operator
+
+*&---------------------------------------------------------------------*
+*& Report ZBC12_CALC
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT zbc12_calc.
+
+SELECTION-SCREEN BEGIN OF BLOCK block WITH FRAME TITLE TEXT-t01.
+
+PARAMETERS p_num1 TYPE p LENGTH 16 DECIMALS 2 OBLIGATORY.
+PARAMETERS p_num2 TYPE p LENGTH 16 DECIMALS 2 OBLIGATORY.
+PARAMETERS op TYPE c.
+
+SELECTION-SCREEN END OF BLOCK block.
+
+DATA message TYPE c LENGTH 255.
+DATA:
+  sum         TYPE p LENGTH 16 DECIMALS 2,
+  subtracting TYPE p LENGTH 16 DECIMALS 2,
+  multiply    TYPE p LENGTH 16 DECIMALS 2,
+  division    TYPE p LENGTH 16 DECIMALS 2.
+
+message = 'THE RESULT IS :'.
+WRITE message.
+
+CASE op.
+  WHEN '+'.
+    sum = p_num1 + p_num2.
+    WRITE : 'Sum of two numbers:', sum.
+  WHEN '-'.
+    subtracting  =  p_num1 - p_num2.
+    WRITE : 'The difference of two numbers', subtracting .
+  WHEN '*'.
+    multiply =  p_num1 * p_num2.
+    WRITE : 'Multiply of two numbers' , multiply.
+  WHEN '/'.
+    IF p_num2 = '0'.
+      WRITE : 'DIVISION with 0 is not allowed'.
+    ELSE.
+      division =  p_num1 / p_num2.
+      WRITE : 'DIVISION OF TWO NUMBERS:' , division.
+    ENDIF.
+  WHEN OTHERS.
+ENDCASE.
+CLEAR p_num1.
+CLEAR p_num2.
